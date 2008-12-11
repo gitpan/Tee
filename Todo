@@ -1,7 +1,3 @@
-TODO list for Perl module Tee
+Todo for Tee
 
-- test tee() with multiple files
-
-- have Tee create a temporary ptee if it can't find one!
-
-
+- nothing right now
