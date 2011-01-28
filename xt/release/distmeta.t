@@ -1,3 +1,4 @@
+#!perl
 #
 # This file is part of Tee
 #
@@ -7,9 +8,9 @@
 #
 #   The Apache License, Version 2.0, January 2004
 #
-select(STDERR);
-$|++;
-select(STDOUT);
-$|++;
-print STDOUT "# STDOUT: hello world\n";
-print STDERR "# STDERR: goodbye, cruel world\n";
+
+use Test::More;
+
+eval "use Test::CPAN::Meta";
+plan skip_all => "Test::CPAN::Meta required for testing META.yml" if $@;
+meta_yaml_ok();

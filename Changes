@@ -1,5 +1,15 @@
 Revision history for Perl module Tee
 
+0.14      2011-01-28 09:40:36 EST5EDT
+
+    [BUG FIXES]
+
+    - fix error writing to undef handle on MSWin32 in some circumstances
+
+    [OTHER]
+
+    - converted distribution to Dist::Zilla
+
 0.13_51 Thu Dec 11 00:48:32 EST 2008
 
     - moved guts of ptee to Tee::App; removed ptee search logic from Tee.pm

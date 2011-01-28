@@ -1,20 +1,26 @@
-# Copyright (c) 2008 by David Golden. All rights reserved.
-# Licensed under Apache License, Version 2.0 (the "License").
-# You may not use this file except in compliance with the License.
-# A copy of the License was distributed with this file or you may obtain a 
-# copy of the License from http://www.apache.org/licenses/LICENSE-2.0
-
-package Tee::App;
+#
+# This file is part of Tee
+#
+# This software is Copyright (c) 2006 by David Golden.
+#
+# This is free software, licensed under:
+#
+#   The Apache License, Version 2.0, January 2004
+#
 use strict;
+use warnings;
+package Tee::App;
+BEGIN {
+  $Tee::App::VERSION = '0.14';
+}
+# ABSTRACT: Implementation of ptee
+
 use Exporter ();
 use File::Basename qw/basename/;
 use Getopt::Long;
 use IO::File;
-
-@Tee::App::ISA = 'Exporter';
-@Tee::App::EXPORT = qw/run/;
-$Tee::App::VERSION = '0.13_51';
-$Tee::App::VERSION = eval $Tee::App::VERSION; ## no critic
+our @ISA = 'Exporter';
+our @EXPORT = qw/run/;
 
 #--------------------------------------------------------------------------#
 # define help text
@@ -72,8 +78,7 @@ sub run {
   # Setup list of filehandles
   #--------------------------------------------------------------------------#
 
-  my $stdout = IO::Handle->new->fdopen(fileno(STDOUT),"w");
-  my @files = $stdout;
+  my @files;
 
   for my $file ( @ARGV ) {
       my $f = IO::File->new("$mode $file") 
@@ -89,6 +94,7 @@ sub run {
   my $buffer;
 
   while ( sysread( STDIN, $buffer, $buffer_size ) > 0 ) {
+      syswrite STDOUT, $buffer;
       for my $fh ( @files ) {
           syswrite $fh, $buffer;
       }
@@ -98,58 +104,57 @@ sub run {
 
 1;
 
-__END__
 
-=begin wikidoc
 
-= NAME
+=pod
 
-Tee::App - Pure Perl emulation of GNU tee
+=head1 NAME
 
-= VERSION
+Tee::App - Implementation of ptee
 
-This documentation refers to version %%VERSION%%
+=head1 VERSION
 
-= DESCRIPTION
+version 0.14
 
-Guts of the {ptee} command.
+=head1 DESCRIPTION
 
-= SEE ALSO
+Guts of the C<<< ptee >>> command.
 
-* [ptee]
+=for Pod::Coverage run
 
-= BUGS
+=head1 SEE ALSO
+
+=over
+
+=item *
+
+L<ptee>
+
+=back
+
+=head1 BUGS
 
 Please report any bugs or feature using the CPAN Request Tracker.  
 Bugs can be submitted through the web interface at 
-[http://rt.cpan.org/Dist/Display.html?Queue=Tee]
+L<http://rt.cpan.org/Dist/Display.html?Queue=Tee>
 
 When submitting a bug or request, please include a test-file or a patch to an
 existing test-file that illustrates the bug or desired feature.
 
-= AUTHOR
+=head1 AUTHOR
 
-David A. Golden (DAGOLDEN)
+David Golden <dagolden@cpan.org>
 
-= COPYRIGHT AND LICENSE
+=head1 COPYRIGHT AND LICENSE
 
-Copyright (c) 2006-2008 by David A. Golden. All rights reserved.
+This software is Copyright (c) 2006 by David Golden.
 
-Licensed under Apache License, Version 2.0 (the "License").
-You may not use this file except in compliance with the License.
-A copy of the License was distributed with this file or you may obtain a 
-copy of the License from http://www.apache.org/licenses/LICENSE-2.0
+This is free software, licensed under:
 
-Files produced as output though the use of this software, shall not be
-considered Derivative Works, but shall be considered the original work of the
-Licensor.
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-
-=end wikidoc
+  The Apache License, Version 2.0, January 2004
 
 =cut
+
+
+__END__
+

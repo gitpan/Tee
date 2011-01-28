@@ -1,36 +1,45 @@
 ---
-name: Tee
-version: 0.13_51
+abstract: 'Pure Perl emulation of GNU tee'
 author:
   - 'David Golden <dagolden@cpan.org>'
-abstract: Pure Perl emulation of GNU tee
-license: apache
-resources:
-  license: http://apache.org/licenses/LICENSE-2.0
-requires:
-  Exporter: 0
-  File::Basename: 0
-  Getopt::Long: 2.2
-  IO::File: 0
-  Probe::Perl: 0.01
 build_requires:
-  File::Spec: 3.27
-  File::Temp: 0.2
-  IO::CaptureOutput: 1.09
-  Test::More: 0.47
+  File::Find: 0
+  File::Spec: 0
+  File::Temp: 0
+  IO::CaptureOutput: 0
+  Test::More: 0
+configure_requires:
+  ExtUtils::MakeMaker: 6.31
+dynamic_config: 0
+generated_by: 'Dist::Zilla version 4.200001, CPAN::Meta::Converter version 2.102400'
+license: apache
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: Tee
+no_index:
+  directory:
+    - t
+    - xt
+    - examples
+    - corpus
+  package:
+    - DB
 provides:
   Tee:
     file: lib/Tee.pm
-    version: 0.13_51
+    version: 0.14
   Tee::App:
     file: lib/Tee/App.pm
-    version: 0.13_51
-generated_by: Module::Build version 0.3
-meta-spec:
-  url: http://module-build.sourceforge.net/META-spec-v1.2.html
-  version: 1.2
-no_index:
-  directory:
-    - examples
-    - inc
-    - t
+    version: 0.14
+requires:
+  Exporter: 0
+  File::Basename: 0
+  Getopt::Long: 0
+  IO::File: 0
+  Probe::Perl: 0
+  perl: 5.006
+resources:
+  homepage: http://github.com/dagolden/tee/tree
+  repository: git://github.com/dagolden/tee.git
+version: 0.14
